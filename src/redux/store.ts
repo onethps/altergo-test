@@ -1,4 +1,4 @@
-import thunkMiddleware from 'redux-thunk';
+import thunk from 'redux-thunk';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
@@ -15,7 +15,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
+  middleware: [thunk],
 });
 
 export const persistor = persistStore(store);

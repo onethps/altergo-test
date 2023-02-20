@@ -9,7 +9,9 @@ export const Layout = () => {
     <Box sx={{ display: 'flex' }}>
       <Header />
       <Box component="main" sx={{ marginY: 12, width: '100%' }}>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Box>
     </Box>
   );

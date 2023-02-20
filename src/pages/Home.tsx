@@ -29,28 +29,26 @@ export const Home = () => {
   }, []);
 
   return (
-    <Container>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-        {albums ? (
-          albums.map((album) => {
-            return (
-              <Card sx={{ width: '350px' }}>
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image={album.url}
-                  alt="Paella dish"
-                />
-                <CardContent>
-                  <Typography>{album.title}</Typography>
-                </CardContent>
-              </Card>
-            );
-          })
-        ) : (
-          <div>NoCARDS</div>
-        )}
-      </Box>
-    </Container>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      {albums ? (
+        albums.map((album) => {
+          return (
+            <Card sx={{ width: '350px' }}>
+              <CardMedia
+                component="img"
+                height="194"
+                image={album.url}
+                alt="Paella dish"
+              />
+              <CardContent>
+                <Typography>{album.title}</Typography>
+              </CardContent>
+            </Card>
+          );
+        })
+      ) : (
+        <div>NoCARDS</div>
+      )}
+    </Box>
   );
 };
