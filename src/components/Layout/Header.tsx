@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Select, SelectChangeEvent } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { userActions } from '../../redux/reducers/user';
 
 export const pages = [
   {
@@ -24,13 +26,16 @@ export const pages = [
 ];
 
 function Header() {
+  const isLoggedIn = useAppSelector((state) => state.user.isAuth);
   const location = useLocation();
-
+  const dispatch = useAppDispatch();
   const [lang, setLang] = useState('ua');
 
   const handleChange = (event: SelectChangeEvent) => {
     setLang(event.target.value as string);
   };
+
+  const handleLogout = () => dispatch(userActions.authUser(false));
 
   return (
     <AppBar component="nav">
@@ -61,15 +66,26 @@ function Header() {
               alignItems: 'center',
             }}
           >
-            <Button
-              to={'/login'}
-              component={RouterLink}
-              sx={{
-                color: 'white',
-              }}
-            >
-              LOGIN
-            </Button>
+            {isLoggedIn ? (
+              <Button
+                sx={{
+                  color: 'white',
+                }}
+                onClick={handleLogout}
+              >
+                LOGOUT
+              </Button>
+            ) : (
+              <Button
+                to={'/login'}
+                component={RouterLink}
+                sx={{
+                  color: 'white',
+                }}
+              >
+                LOGIN
+              </Button>
+            )}
 
             <Select
               sx={{
