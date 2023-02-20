@@ -2,14 +2,15 @@ import { Box, Container } from '@mui/material';
 import React, { ReactNode } from 'react';
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
+import Toolbar from '@mui/material/Toolbar/Toolbar';
 
 export const Layout = () => {
   return (
-    <Box>
+    <Box sx={{ display: 'flex' }}>
       <Header />
-      <Container sx={{ marginTop: 3, minHeight: '100vh' }}>
+      <Box component="main" sx={{ marginY: 12, width: '100%' }}>
         <Outlet />
-      </Container>
+      </Box>
     </Box>
   );
 };

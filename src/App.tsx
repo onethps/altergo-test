@@ -1,4 +1,3 @@
-import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
@@ -16,12 +15,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/profile',
-        element: <Profile />,
-      },
-      {
         path: '/news',
         element: <News />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
       {
         path: '/login',
@@ -32,12 +31,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

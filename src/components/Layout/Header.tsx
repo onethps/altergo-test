@@ -1,12 +1,10 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Select, SelectChangeEvent } from '@mui/material';
 
@@ -16,26 +14,26 @@ export const pages = [
     route: '/',
   },
   {
-    name: 'Profile',
-    route: '/profile',
-  },
-  {
     name: 'News',
     route: '/news',
+  },
+  {
+    name: 'Profile',
+    route: '/profile',
   },
 ];
 
 function Header() {
   const location = useLocation();
 
-  const [lang, setLang] = React.useState('ua');
+  const [lang, setLang] = useState('ua');
 
   const handleChange = (event: SelectChangeEvent) => {
     setLang(event.target.value as string);
   };
 
   return (
-    <AppBar position="static">
+    <AppBar component="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
