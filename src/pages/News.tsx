@@ -26,7 +26,6 @@ export const News = () => {
 
   const [showButton, setShowButton] = useState(true);
   const [postsCount, setPostsCount] = useState(DEFAULT_POSTS_COUNT);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const isFetchingOnMount = status === 'loading' && !posts.length;
 
@@ -62,8 +61,6 @@ export const News = () => {
       </Box>
     );
   }
-
-  console.log(isImageLoaded);
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
