@@ -1,8 +1,7 @@
 import { Box, Container } from '@mui/material';
-import React, { ReactNode } from 'react';
-import Header from './Header';
 import { Outlet } from 'react-router-dom';
-import Toolbar from '@mui/material/Toolbar/Toolbar';
+
+import Header from './Header';
 
 export const Layout = () => {
   return (

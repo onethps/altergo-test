@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
+  Button,
   Card,
   CardContent,
-  Typography,
   CardHeader,
-  IconButton,
-  Button,
   CardMedia,
+  IconButton,
+  Typography,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useEffect, useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
-import { postsActions } from '../redux/reducers/posts';
 import { deletePost, fetchPosts } from '../redux/middleware/posts';
-import CloseIcon from '@mui/icons-material/Close';
+
+const DEFAULT_POSTS_COUNT = 6;
+const LOAD_POSTS_COUNT = 6;
 
 export const News = () => {
   const dispatch = useAppDispatch();
@@ -20,17 +24,17 @@ export const News = () => {
   const posts = useAppSelector((state) => state.posts.posts);
   const status = useAppSelector((state) => state.posts.status);
 
-  console.log(posts);
+  const [showButton, setShowButton] = useState(true);
+  const [postsCount, setPostsCount] = useState(DEFAULT_POSTS_COUNT);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const [showButton, setShowButton] = useState(false);
-  const [postsCount, setPostsCount] = useState(6);
+  const isFetchingOnMount = status === 'loading' && !posts.length;
 
-  const isFetching = status === 'loading';
-
-  const handleLoadMorePosts = () => setPostsCount((prev) => prev + 6);
+  const handleLoadMorePosts = () => setPostsCount((prev) => prev + LOAD_POSTS_COUNT);
 
   const handleDeletePost = (postId: number) => {
     dispatch(deletePost({ postId }));
+    // prevent last item in array to show the load button
     setPostsCount(posts.length - 1);
   };
 
@@ -38,16 +42,46 @@ export const News = () => {
     dispatch(fetchPosts({ limit: postsCount }))
       .unwrap()
       .then((res) => {
-        console.log(res.length);
         if (res.length < postsCount) {
-          setShowButton(true);
+          setShowButton(false);
         }
       });
   }, [postsCount]);
 
+  if (isFetchingOnMount) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '300px',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  console.log(isImageLoaded);
+
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-      {posts.length ? (
+      {!posts.length && status === 'success' ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            minHeight: '300px',
+          }}
+        >
+          <Typography textAlign="center" variant="h5" sx={{ opacity: 0.5 }}>
+            Empty List
+          </Typography>
+        </Box>
+      ) : (
         posts.map((post) => (
           <Card key={post.id} sx={{ width: '350px' }}>
             <CardHeader
@@ -69,31 +103,19 @@ export const News = () => {
               }
               title={post.title}
             />
+
             <CardMedia
               component="img"
               alt="post image"
               height="194"
-              image="https://via.placeholder.com/600"
+              src="https://via.placeholder.com/600"
             />
+
             <CardContent>
               <Typography>{post.body}</Typography>
             </CardContent>
           </Card>
         ))
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            minHeight: '300px',
-          }}
-        >
-          <Typography textAlign="center" variant="h5" sx={{ opacity: 0.5 }}>
-            Empty List
-          </Typography>
-        </Box>
       )}
       <Box
         sx={{
@@ -102,8 +124,12 @@ export const News = () => {
           width: '100%',
         }}
       >
-        {!showButton && (
-          <Button variant="contained" onClick={handleLoadMorePosts} disabled={isFetching}>
+        {showButton && (
+          <Button
+            variant="contained"
+            onClick={handleLoadMorePosts}
+            disabled={status === 'loading'}
+          >
             Load More
           </Button>
         )}

@@ -1,26 +1,24 @@
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
   Card,
   CardContent,
-  CardHeader,
   FormControl,
-  FormGroup,
-  FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Typography,
 } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import React, { useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
-import { useNavigate, useNavigation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import React, { FormEvent, MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import { useAppDispatch } from '../hooks/redux-hooks';
 import { userActions } from '../redux/reducers/user';
-import { useTranslation } from 'react-i18next';
 
 const userData = {
   username: 'admin',

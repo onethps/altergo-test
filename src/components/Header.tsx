@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import { FormControl, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { userActions } from '../../redux/reducers/user';
+import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
+import { userActions } from '../redux/reducers/user';
 
 function Header() {
   const location = useLocation();

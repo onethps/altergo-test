@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { deletePost, fetchPosts } from '../middleware/posts';
+
 import { IPost } from '../../interfaces/interfaces';
+import { deletePost, fetchPosts } from '../middleware/posts';
 
 export type ResponseType = 'idle' | 'loading' | 'success' | 'error';
 

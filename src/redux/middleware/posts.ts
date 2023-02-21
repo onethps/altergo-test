@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+
 import { IPost } from '../../interfaces/interfaces';
 import { postAPI } from '../../services/posts';
 

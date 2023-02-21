@@ -1,8 +1,9 @@
 import i18next from 'i18next';
+import ChainedBackend from 'i18next-chained-backend';
 import { initReactI18next } from 'react-i18next';
+
 import translationEN from './en/translationEN.json';
 import translationUA from './ua/translationUA.json';
-import ChainedBackend from 'i18next-chained-backend';
 
 export const resources = {
   en: {

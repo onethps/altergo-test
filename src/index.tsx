@@ -1,14 +1,13 @@
-import React from 'react';
-
 import CssBaseline from '@mui/material/CssBaseline';
-import reportWebVitals from './reportWebVitals';
+import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-
-import App from './App';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from './redux/store';
+
+import App from './App';
 import './i18n/config';
+import { persistor, store } from './redux/store';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOMClient.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
