@@ -1,6 +1,6 @@
 import thunk from 'redux-thunk';
 
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -24,6 +24,8 @@ export const persistor = persistStore(store);
 export type RootReducerType = typeof rootReducer;
 export type AppRootStateType = ReturnType<RootReducerType>;
 export type AppDispatchType = typeof store.dispatch;
+
+export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>;
 
 export type ThunkError = {
   rejectValue: { errors: Array<string>; fieldsErrors?: Array<FieldErrorType> };

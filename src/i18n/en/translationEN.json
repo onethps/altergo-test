@@ -1,0 +1,28 @@
+{
+    "pages": [
+      {
+        "name": "Home",
+        "route": "/"
+      },
+      {
+        "name": "News",
+        "route": "/news"
+      },
+      {
+        "name": "Profile",
+        "route": "/profile"
+      }
+    ],
+    "logoutText": "LOGOUT",
+    "loginText": "LOGIN",
+    "loginPage": {
+      "loginTitle": "LOGIN",
+      "loginError": "Wrong Name or Password",
+      "formUserName": "UserName",
+      "formPassword": "Password",
+      "formSubmit": "Login"
+    },
+    "profilePage": {
+      "title": "Profile"
+    }
+  }

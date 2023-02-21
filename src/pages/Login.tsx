@@ -20,6 +20,7 @@ import { useNavigate, useNavigation } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import { useAppDispatch } from '../hooks/redux-hooks';
 import { userActions } from '../redux/reducers/user';
+import { useTranslation } from 'react-i18next';
 
 const userData = {
   username: 'admin',
@@ -29,6 +30,7 @@ const userData = {
 export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
@@ -69,7 +71,7 @@ export const Login = () => {
         <Card sx={{ width: '381px' }}>
           <CardContent>
             <Typography variant="h5" textAlign="center">
-              LOGIN
+              {t('loginPage.loginTitle')}
             </Typography>
 
             <Box
@@ -85,18 +87,18 @@ export const Login = () => {
             >
               {/* //username */}
               <FormControl variant="outlined">
-                <InputLabel htmlFor="username">username</InputLabel>
+                <InputLabel htmlFor="username"> {t('loginPage.formUserName')}</InputLabel>
                 <OutlinedInput
                   error={error}
                   id="username"
                   name="username"
                   aria-describedby="outlined-weight-helper-text"
-                  label="username"
+                  label={t('loginPage.formUserName')}
                 />
               </FormControl>
               {/* //password */}
               <FormControl variant="outlined">
-                <InputLabel htmlFor="password">Password</InputLabel>
+                <InputLabel htmlFor="password"> {t('loginPage.formPassword')}</InputLabel>
                 <OutlinedInput
                   error={error}
                   id="password"
@@ -115,11 +117,11 @@ export const Login = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Password"
+                  label={t('loginPage.formPassword')}
                 />
               </FormControl>
               <Button variant="contained" type="submit">
-                LOGIN
+                {t('loginPage.formSubmit')}
               </Button>
             </Box>
           </CardContent>
@@ -127,7 +129,7 @@ export const Login = () => {
       </Box>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleToastClose}>
         <Alert onClose={handleToastClose} severity="error" sx={{ width: '100%' }}>
-          Login or Password not correct!
+          {t('loginPage.loginError')}
         </Alert>
       </Snackbar>
     </>

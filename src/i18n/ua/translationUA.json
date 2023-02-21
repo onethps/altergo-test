@@ -1,0 +1,28 @@
+{
+    "pages": [
+      {
+        "name": "Головна",
+        "route": "/"
+      },
+      {
+        "name": "Новини",
+        "route": "/news"
+      },
+      {
+        "name": "Профіль",
+        "route": "/profile"
+      }
+    ],
+    "logoutText": "Вихід",
+    "loginText": "Увійти",
+    "loginPage": {
+      "loginTitle": "Авторизація",
+      "loginError": "Ім'я користувача або пароль введено неправильно",
+      "formUserName": "Юзер",
+      "formPassword": "Пароль",
+      "formSubmit": "Увійти"
+    },
+    "profilePage": {
+      "title": "Профіль"
+    }
+  }

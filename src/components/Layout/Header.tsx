@@ -3,61 +3,71 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
+import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { Select, SelectChangeEvent } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { userActions } from '../../redux/reducers/user';
-
-export const pages = [
-  {
-    name: 'Home',
-    route: '/',
-  },
-  {
-    name: 'News',
-    route: '/news',
-  },
-  {
-    name: 'Profile',
-    route: '/profile',
-  },
-];
+import LinearProgress from '@mui/material/LinearProgress';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
-  const isLoggedIn = useAppSelector((state) => state.user.isAuth);
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const [lang, setLang] = useState('ua');
+  const { t, i18n, ready } = useTranslation();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setLang(event.target.value as string);
-  };
+  const isLoggedIn = useAppSelector((state) => state.user.isAuth);
+  const status = useAppSelector((state) => state.posts.status);
+
+  const [locale, setLocale] = useState(i18n.language);
+
+  const isFetching = status === 'loading';
 
   const handleLogout = () => dispatch(userActions.authUser(false));
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const newValue = event.target.value as string;
+    setLocale(newValue);
+    i18n.changeLanguage(newValue);
+    localStorage.setItem('lng', newValue);
+  };
+
+  const pages = t('pages', { returnObjects: true, defaultValue: 'page' });
 
   return (
     <AppBar component="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                to={page.route}
-                key={page.name}
-                component={RouterLink}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block',
-                  opacity: location.pathname === page.route ? 1 : 0.5,
-                }}
-              >
-                {page.name}
-              </Button>
-            ))}
-          </Box>
+          {!ready ? (
+            <div>loading</div>
+          ) : (
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page: any) => (
+                <Button
+                  to={page.route}
+                  key={page.name}
+                  component={RouterLink}
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                    opacity: location.pathname === page.route ? 1 : 0.5,
+                  }}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+          )}
           <Box
             sx={{
               display: 'flex',
@@ -73,7 +83,7 @@ function Header() {
                 }}
                 onClick={handleLogout}
               >
-                LOGOUT
+                {t('logoutText')}
               </Button>
             ) : (
               <Button
@@ -83,33 +93,36 @@ function Header() {
                   color: 'white',
                 }}
               >
-                LOGIN
+                {t('loginText')}
               </Button>
             )}
 
-            <Select
-              sx={{
-                color: 'white',
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white',
-                },
-                '& .MuiSvgIcon-root': {
+            <FormControl sx={{ m: 1 }}>
+              <Select
+                sx={{
                   color: 'white',
-                },
-                '& > fieldset': { border: 'none' },
-              }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={lang}
-              label="Language"
-              onChange={handleChange}
-            >
-              <MenuItem value={'ua'}>UA</MenuItem>
-              <MenuItem value={'en'}>EN</MenuItem>
-            </Select>
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    color: 'white',
+                  },
+                  '& > fieldset': { border: 'none' },
+                }}
+                labelId="dialog-select-label"
+                id="dialog-select"
+                value={locale}
+                onChange={handleChange}
+                input={<OutlinedInput label="language" />}
+              >
+                <MenuItem value={'en'}>en</MenuItem>
+                <MenuItem value={'ua'}>ua</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
         </Toolbar>
       </Container>
+      {isFetching && <LinearProgress />}
     </AppBar>
   );
 }
